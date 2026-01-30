@@ -7,7 +7,7 @@ import (
 
 // Record holds value + metadata
 type Record struct {
-	Value     string
+	Value     any
 	Timestamp int64
 }
 
@@ -28,21 +28,18 @@ func New() *Store {
 }
 
 // Set stores a key-value pair
-func (s *Store) Set(key, value string) {
-	// TODO: lock, set with timestamp, unlock
+func (s *Store) Set(key string, value any) {
 	s.mu.Lock()
+	defer s.mu.Unlock()
 	s.Data[key] = Record{value, time.Now().Unix()}
-	s.mu.Unlock()
 }
 
 // Get retrieves a value by key
-func (s *Store) Get(key string) (string, bool) {
-	// TODO: rlock, get, runlock
+func (s *Store) Get(key string) (any, bool) {
 	s.mu.RLock()
+	defer s.mu.RUnlock()
 	data, ok := s.Data[key]
-	s.mu.RUnlock()
 	return data.Value, ok
-
 }
 
 // Delete removes a key
