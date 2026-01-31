@@ -7,13 +7,13 @@ import (
 )
 
 func main() {
-	store := storage.New()
-	store.Set("name", "sachin")
-
-	val, ok := store.Get("name")
-	if ok {
-		fmt.Printf("Got: %s\n", val)
+	store, err := storage.New("data.wal")
+	if err != nil {
+		panic(err)
 	}
 
-	fmt.Printf("Keys: %v\n", store.Keys())
+	store.Set("name", []byte("sachin"))
+
+	val, _ := store.Get("name")
+	fmt.Printf("Got: %s\n", string(val))
 }

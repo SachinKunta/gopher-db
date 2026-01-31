@@ -1,0 +1,5 @@
+SET|name|sachin
+SET|age|25
+DELETE|name|
+SET|name|John
+SET|age|26
