@@ -34,3 +34,5 @@ coverage.html
 # Profiling
 *.prof
 *.pprof
+
+./data.wal

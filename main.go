@@ -12,8 +12,10 @@ func main() {
 		panic(err)
 	}
 
-	store.Set("name", []byte("sachin"))
-
-	val, _ := store.Get("name")
+	val, err := store.Get("name")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	fmt.Printf("Got: %s\n", string(val))
 }
